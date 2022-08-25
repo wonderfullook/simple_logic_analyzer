@@ -62,6 +62,8 @@ end
 完成综合、步线之后，直接下载到 SRAM。连接 FT2232H 开发板，打开桌面测试程序，将其中一路探针触碰 3.3V 高电平，
 会看到打印出的变化的数据。
 
+![](result.png)
+
 **注意事项：**
 
 1. 下载时，务必断开 FT2232H 开发版以及其它使用了 FTDI 驱动的设备；
@@ -103,7 +105,9 @@ end
 
 调试信号：N7 反映采样率。
 
-## 最后
+## 其它
 
-项目可算是 20K 的 Hello World。如果觉得有用，可以将本项目移植到 [SIPEED Tang Nano](https://en.wiki.sipeed.com/hardware/zh/tang/Tang-Nano-Doc/SUMMARY.html)
+这个项目代码短小，也算是 [SIPEED Tang Primer 20K](https://en.wiki.sipeed.com/hardware/zh/tang/tang-primer-20k/primer-20k.html)
+上的 Hello World。接下来可以将本项目移植到
+[SIPEED Tang Nano](https://en.wiki.sipeed.com/hardware/zh/tang/Tang-Nano-Doc/SUMMARY.html)
 系列，用以辅助 20K 上复杂项目的开发。
