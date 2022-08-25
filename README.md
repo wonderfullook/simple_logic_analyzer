@@ -108,6 +108,6 @@ end
 ## 其它
 
 这个项目代码短小，也算是 [SIPEED Tang Primer 20K](https://en.wiki.sipeed.com/hardware/zh/tang/tang-primer-20k/primer-20k.html)
-上的 Hello World。也可以将本项目移植到
+上的 Hello World。将本项目也可移植到
 [SIPEED Tang Nano](https://en.wiki.sipeed.com/hardware/zh/tang/Tang-Nano-Doc/SUMMARY.html)
 系列，用以辅助 20K 上复杂项目的开发。
