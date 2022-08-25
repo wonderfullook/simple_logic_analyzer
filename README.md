@@ -25,9 +25,42 @@
 
     * 使用 [FT_Prog](https://ftdichip.cn/Support/Utilities.htm#FT_PROG) 将端口 A 配置为 FIFO 模式
 
+## 原理说明
+
+FT2232H 输出的 60MHz CLKOUT 信号经 `counter` 分频后，触发对 8 路 `capture` 信号进行采样。采样后的数据
+通过 FT2232H 同步 245 FIFO 模式传输到 PC。
+
+FT2232H FIFO 模式支持双向数据传输，这里的只用到上传数据（即向 FIFO 写入数据）到 PC 单一路径，所以 `rd_n` 信号固定为 `1`。
+FT2232H FIFO 写入时序如图。
+
+![](fifo_timing.png)
+
+数据的写入控制涉及两个信号：
+
+* `wr_n`：FT2232H 的输入，低电平有效，表示 DATA 上数据就绪；
+* `tx_e`：FT2232H 的输出，低电平有效，表示 FIFO 此时可接收数据。
+
+在 CLKOUT 上升沿 `wr_n`、`txe_n` 同时低电平说明数据已经写入 FIFO。
+
+数据采样、FIFO 写入实现如下：
+
+```verilog
+always @(posedge clk) begin
+    if ((wr_n == 'b0) && (txe_n == 'b0))
+        wr_n = 'b1;
+
+    if (counter == 0) begin
+        wr_n = 'b0;
+        reg_data <= capture;
+    end
+    counter <= counter + 1'b1;
+end
+```
+
 ## 使用说明
 
-直接用高云 IDE 编译、下载。
+完成综合、步线之后，直接下载到 SRAM。连接 FT2232H 开发板，打开桌面测试程序，将其中一路探针触碰 3.3V 高电平，
+会看到打印出的变化的数据。
 
 **注意事项：**
 
