@@ -103,9 +103,7 @@ end
 
 调试信号：N7 反映采样率。
 
-## 下一步
+## 最后
 
-1. 将本项目移植到 [SIPEED Tang Nano](https://en.wiki.sipeed.com/hardware/zh/tang/Tang-Nano-Doc/SUMMARY.html)
-    系列，用以辅助 20K 上复杂项目的开发；
-
-1. 与 [PulseView](https://sigrok.org/wiki/PulseView) 对接。
+项目可算是 20K 的 Hello World。如果觉得有用，可以将本项目移植到 [SIPEED Tang Nano](https://en.wiki.sipeed.com/hardware/zh/tang/Tang-Nano-Doc/SUMMARY.html)
+系列，用以辅助 20K 上复杂项目的开发。
