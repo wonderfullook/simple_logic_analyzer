@@ -1,10 +1,15 @@
 //Copyright (C)2014-2022 Gowin Semiconductor Corporation.
-//All rights reserved. 
+//All rights reserved.
 //File Title: Physical Constraints file
 //GOWIN Version: 1.9.8.07 Education
 //Part Number: GW2A-LV18PG256C8/I7
 //Device: GW2A-18C
 //Created Time: Wed 08 24 17:52:50 2022
+
+IO_LOC "rst_n" T2;
+IO_PORT "rst_n" IO_TYPE=LVCMOS15
+
+IO_LOC "debug" N7;
 
 IO_LOC "siwu_n" K13;
 IO_PORT "siwu_n" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
@@ -30,8 +35,7 @@ IO_LOC "data[1]" K16;
 IO_PORT "data[1]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
 IO_LOC "data[0]" K15;
 IO_PORT "data[0]" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
-IO_LOC "debug" N7;
-IO_PORT "debug" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
+
 IO_LOC "clk" J12;
 IO_PORT "clk" IO_TYPE=LVCMOS33 PULL_MODE=NONE;
 IO_LOC "capture[6]" R13;

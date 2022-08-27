@@ -4,7 +4,7 @@
 和 FT2232H 开发的极简逻辑分析仪：
 
 * 8 路采样
-* 采样率可调（`COUNTER_SIZE`）
+* 采样率可调（`COUNTER_SIZE`），默认采用率 7.5MHz
 
 ![](overview.jpg)
 
@@ -42,17 +42,22 @@ FT2232H FIFO 写入时序如图。
 
 在 CLKOUT 上升沿 `wr_n`、`txe_n` 同时低电平说明数据已经写入 FIFO。
 
-数据采样、FIFO 写入实现如下：
+数据采样、FIFO 写入（简化）实现如下：
 
 ```verilog
 always @(posedge clk) begin
-    if ((wr_n == 'b0) && (txe_n == 'b0))
-        wr_n = 'b1;
-
-    if (counter == 0) begin
-        wr_n = 'b0;
-        reg_data <= capture;
-    end
+    if (wr_n == 'b0) begin
+        if (txe_n == 'b0) begin
+            wr_n <= 'b1;
+        end;
+    end else begin
+        if (counter == 0) begin
+            reg_data <= capture;
+        end
+        if (counter == 1) begin
+            wr_n <= 'b0;
+        end
+    end;
     counter <= counter + 1'b1;
 end
 ```
@@ -60,9 +65,10 @@ end
 ## 使用说明
 
 完成综合、步线之后，直接下载到 SRAM。连接 FT2232H 开发板，打开桌面测试程序，将其中一路探针触碰 3.3V 高电平，
-会看到打印出的变化的数据。
+会看到打印出的变化的数据。采集到的数据会自动保存到文件，可以用 [PulseView](https://sigrok.org/wiki/PulseView) 查看、分析。
 
 ![](result.png)
+
 
 **注意事项：**
 
@@ -103,7 +109,7 @@ end
 |  R13       |   6         |
 |  R12       |   7         |
 
-调试信号：N7 反映采样率。
+调试信号：N7 反映复位状态（复位信号来自 T2，下降沿生效）。
 
 ## 其它
 
